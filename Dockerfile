@@ -40,6 +40,10 @@ COPY public public
 COPY scripts scripts
 COPY emails emails
 
+# change "%m/%d" en-us date format to "%d.%m." for de-at
+RUN export GRAPHJS=public/app/plugins/panel/graph/graph.ts && \
+[ -e $GRAPHJS ] && sed -i 's/%m\/%d/%d.%m./g' $GRAPHJS
+
 ENV NODE_ENV production
 RUN ./node_modules/.bin/grunt build
 
