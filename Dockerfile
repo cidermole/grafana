@@ -40,6 +40,10 @@ COPY public public
 COPY scripts scripts
 COPY emails emails
 
+# change "%m/%d" (e.g. "3/1") date format to "%b %d", e.g. "Mar 1"
+RUN export GRAPHJS=public/app/plugins/panel/graph/graph.ts && \
+[ -e $GRAPHJS ] && sed -i 's/%m\/%d/%b %d/g' $GRAPHJS
+
 ENV NODE_ENV production
 RUN ./node_modules/.bin/grunt build
 
